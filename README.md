@@ -41,6 +41,7 @@ Installation
 
 5. Deploy to Managed Application Runtime
 
+```sh
     $ git push qtc master
     > Counting objects: 40, done.
     > Delta compression using up to 4 threads.
@@ -163,6 +164,7 @@ Installation
     > remote:        your-app-id deployed to http://your-app-id.qtcloudapp.com
     > To git@git-mar-eu-1.qtc.io:your-app-id
     >  * [new branch]      master -> master
+```
 
 The Ghost blog should be now up and running at the MAR application URL. Enjoy!
 
