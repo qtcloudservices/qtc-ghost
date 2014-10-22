@@ -20,8 +20,8 @@ $ git clone git://github.com/qtcloudservices/qtc-ghost.git
 
 You can create the instances with Qt Cloud Services [management console](https://console.qtcloudservices.com). 
 
-    * Select **Mini** runtime size for MAR instance. 
-    * Select **MySQL 5.6** for MDB with the amount of memory you feel comfortable. For small blog with few visitors the 256MB memory is enough.
+* Select **Mini** runtime size for MAR instance. 
+* Select **MySQL 5.6** for MDB with the amount of memory you feel comfortable. For small blog with few visitors the 256MB memory is enough.
 
 ### 3. Initialize the `qtc-cli` command-line tool.
 
