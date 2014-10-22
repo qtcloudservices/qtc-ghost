@@ -1,0 +1,19 @@
+{
+    "name": "qtc-ghost",
+    "version": "0.1.0",
+    "description": "Ghost blogging platform setup for Qt Cloud Services",
+    "author": "Miska Kaipiainen <miska.kaipiainen@gmail.com>",
+    "license": "MIT",
+    "keywords": [
+        "ghost",
+        "qtc"
+    ],
+    "main": "index.js",
+    "dependencies": {
+        "express": "4.9.2",
+        "ghost": "~0.5.2"
+    },
+    "scripts": {
+        "start": "node index.js"
+    }
+}

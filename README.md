@@ -1,4 +1,4 @@
-qtc-ghost
-=========
+Ghost blog platform for Qt Cloud Services
+=========================================
 
-Ghost blogging platform setup for QtC Managed Application Runtime
+TODO
