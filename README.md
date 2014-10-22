@@ -36,7 +36,7 @@ $ git remote add qtc YOUR_MAR_GIT_REMOTE_ADDRESS_HERE
 And your public SSH key needs to be [available in your Qt Cloud Services account](https://developer.qtcloudservices.com/qtc/personal-ssh-keys).  
 
 
-### 4. Add application configuration with [`qtc-cli`](https://developer.qtcloudservices.com/qtc/cli) tool.
+### 4. Setup configuration variables with the [`qtc-cli`](https://developer.qtcloudservices.com/qtc/cli) tool.
 
 You will need database configuration from your MDB instance and SMTP server settings to complete the application configuration. Hint! If you don't have SMTP server, check [Mandrill](https://mandrill.com/) or something similar. 
 
@@ -56,7 +56,7 @@ $ qtc-cli mar envs:set MYSQL_DATABASE=ghost_db
 $ qtc-cli mar envs:set MYSQL_CHARSET=utf8    
 ```
 
-### 5. Deploy to Managed Application Runtime
+### 5. Deploy codes to MAR
 
 ```sh
 $ git push qtc master
@@ -90,11 +90,11 @@ http://your-app-url.qtcloudapp.com/ghost
 
 ## Media uploads
 
-Ghost blog platform does not (yet) support cloud based file storage such as Amazon S3. Because a files written to MAR file system are not persistent, media uploads has been disabled by default.
+Ghost blog platform does not (yet) support cloud based file storage such as Amazon S3. Because a files written to MAR file system are not persistent, media uploads have been disabled by default.
 
 ## Custom Domains
 
-If you want to assign a custom domain to your site, enter the follow commands.
+If you want to assign a custom domain to your site, enter the follow command.
 
 ```sh
 $ qtc-cli domains:add www.example.com
