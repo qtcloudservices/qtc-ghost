@@ -10,31 +10,36 @@ See the working demo (our development blog) at http://feed.qtcloudservices.com/
 
 ## Installation
 
-### 1. Clone the repository from Github
+### 1. Create MAR and MDB instances.
+
+Use Qt Cloud Services [management console](https://console.qtcloudservices.com) to create the instances. 
+
+* Select **Mini** runtime size for MAR instance. 
+* Select **MySQL 5.6** for MDB with the amount of memory you feel comfortable. For small blog with few visitors the 256MB memory is enough.
+
+
+### 2. Clone this repository from Github.
 
 ```sh
 $ git clone git://github.com/qtcloudservices/qtc-ghost.git
 ```
 
-### 2. Create MAR and MDB instances.
 
-You can create the instances with Qt Cloud Services [management console](https://console.qtcloudservices.com). 
-
-* Select **Mini** runtime size for MAR instance. 
-* Select **MySQL 5.6** for MDB with the amount of memory you feel comfortable. For small blog with few visitors the 256MB memory is enough.
-
-### 3. Initialize the `qtc-cli` command-line tool.
-
-You will need `git remote address` for your MAR instance to initialize the [qtc-cli](https://developer.qtcloudservices.com/qtc/cli) tool. Copy/paste your git remote address from MAR instance general settings panel. 
+### 3. Add new Git remote to cloned repository.
 
 ```sh
 $ cd qtc-ghost
 $ git remote add qtc YOUR_MAR_GIT_REMOTE_ADDRESS_HERE
 ```
 
-### 4. Add application configuration with qtc-cli tool.
+`Git remote address` can be copied from managament console, from general settings panel under the MAR instance. 
+And your public SSH key needs to be [available in your Qt Cloud Services account](https://developer.qtcloudservices.com/qtc/personal-ssh-keys).  
 
-You will need database configuration from your MDB instance and SMTP server settings to complete the application configuration. Hint! If you don't have SMTP server, check [Mandrill](https://mandrill.com/) or something similar.
+
+### 4. Add application configuration with [`qtc-cli`](https://developer.qtcloudservices.com/qtc/cli) tool.
+
+You will need database configuration from your MDB instance and SMTP server settings to complete the application configuration. Hint! If you don't have SMTP server, check [Mandrill](https://mandrill.com/) or something similar. 
+
 
 ```sh
 $ qtc-cli mar envs:set NODE_ENV=production
