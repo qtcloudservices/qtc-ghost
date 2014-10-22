@@ -39,8 +39,8 @@ config = {
         },
         paths: {
             contentPath: path.join(__dirname, '/content/')
-        }
-
+        },
+        fileStorage: false
     },
     // ### Development **(default)**
     development: {
