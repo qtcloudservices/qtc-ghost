@@ -12,15 +12,14 @@ See the working demo (our development blog) at http://feed.qtcloudservices.com/
 
 ### 1. Create MAR and MDB instances.
 
-Use Qt Cloud Services [management console](https://console.qtcloudservices.com) to create the instances. 
+Ghost will require Node.js runtime environment and a database. Use Qt Cloud Services [management console](https://console.qtcloudservices.com) to create these instances. 
 
 * Select **Mini** runtime size for MAR instance. 
 * Select **MySQL 5.6** for MDB with the amount of memory you feel comfortable. For small blog with few visitors the 256MB memory is enough.
 
+### 2. Create MDB database.
 
-### 2. Create database into MDB.
-
-Take [MySQL remote access](https://developer.qtcloudservices.com/mdb/key-concepts/remote-access) to MDB instance and create new database for the Ghost.
+[Establish SSH tunnel and port forwarding](https://developer.qtcloudservices.com/mdb/key-concepts/remote-access) to MDB instance, and access the database with `mysql` client using your MDB instance credentials. Create database for ghost. With `mysql` command line tool, type:
 
 ```sh
 mysql> create database ghost_db
@@ -33,15 +32,14 @@ $ git clone git://github.com/qtcloudservices/qtc-ghost.git
 ```
 
 
-### 4. Add new Git remote to local repository.
+### 4. Add MAR git remote address to local repository.
 
 ```sh
 $ cd qtc-ghost
 $ git remote add qtc YOUR_MAR_GIT_REMOTE_ADDRESS_HERE
 ```
 
-`Git remote address` can be copied from managament console, from general settings panel under the MAR instance. 
-
+You'll find your MAR git remote address at management console by opening your MAR instance settings panel. 
 
 ### 5. Setup configuration variables to MAR with the [`qtc-cli`](https://developer.qtcloudservices.com/qtc/cli) tool.
 
@@ -55,11 +53,16 @@ $ qtc-cli mar envs:set MYSQL_PASSWORD=YOUR_MDB_PASSWORD_HERE
 $ qtc-cli mar envs:set MYSQL_DATABASE=ghost_db
 $ qtc-cli mar envs:set MYSQL_CHARSET=utf8    
 ```
-`MDB details` can be copied from managament console, from general settings panel under the MDB instance. 
-`ghost_db` is the same name as you used in step 2 for the new database. 
 
-Optionally you can setup also SMTP server settings. 
-Hint! If you don't have SMTP server, check [Mandrill](https://mandrill.com/) or something similar. 
+You'll find the MySQL configuration setting at management console by opening your MDB instance settings panel.  
+
+The `MYSQL_DATABASE` setting value should be the name of the database you created in step 2. 
+
+**Optional SMTP Settings**
+
+Ghost blog platform has a built in support for sending emails. This feature is used by forgotten password recovery. 
+
+In order to use emails, you'll need to configure external SMTP server address and credentials. Hint! If you don't have SMTP server, check [Mandrill](https://mandrill.com/) or something similar. 
 
 ```sh
 $ qtc-cli mar envs:set SMTP_HOST=YOUR_SMTP_SERVER_ADDRESS_HERE
@@ -68,7 +71,7 @@ $ qtc-cli mar envs:set SMTP_USERNAME=YOUR_SMTP_SERVER_USERNAME_HERE
 $ qtc-cli mar envs:set SMTP_PASSWORD=YOUR_SMTP_SERVER_PASSWORD_HERE
 ```
 
-### 6. Deploy codes to MAR
+### 6. Deploy
 
 ```sh
 $ git push qtc master
@@ -97,7 +100,7 @@ The Ghost blog should be now up and running at the MAR application URL. Enjoy!
 Access your blog admin page at
 
 ```
-http://your-app-url.qtcloudapp.com/ghost
+http://your-app-id.qtcloudapp.com/ghost
 ```
 
 ## Media uploads
