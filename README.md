@@ -22,7 +22,7 @@ Ghost will require Node.js runtime environment and a database. Use Qt Cloud Serv
 [Establish SSH tunnel and port forwarding](https://developer.qtcloudservices.com/mdb/key-concepts/remote-access) to MDB instance, and access the database with `mysql` client using your MDB instance credentials. Create database for ghost. With `mysql` command line tool, type:
 
 ```sh
-mysql> create database ghost_db
+mysql> create database ghost_db;
 ```
 
 ### 3. Clone this repository.
@@ -54,9 +54,12 @@ $ qtc-cli mar envs:set MYSQL_DATABASE=ghost_db
 $ qtc-cli mar envs:set MYSQL_CHARSET=utf8    
 ```
 
-You'll find the MySQL configuration setting at management console by opening your MDB instance settings panel.  
+You'll find the MySQL configuration settings at management console by opening your MDB instance settings panel.  
 
 The `MYSQL_DATABASE` setting value should be the name of the database you created in step 2. 
+
+The `YOUR_BLOG_ADDRESS_HERE` setting value can be the MAR instance Application URL or some other domain from where you plan to serve the blog.  
+
 
 **Optional SMTP Settings**
 
