@@ -18,14 +18,22 @@ Use Qt Cloud Services [management console](https://console.qtcloudservices.com) 
 * Select **MySQL 5.6** for MDB with the amount of memory you feel comfortable. For small blog with few visitors the 256MB memory is enough.
 
 
-### 2. Clone this repository from Github.
+### 2. Create database into MDB.
+
+Take [MySQL remote access](https://developer.qtcloudservices.com/mdb/key-concepts/remote-access) to MDB instance and create new database for the Ghost.
+
+```sh
+mysql> create database ghost_db
+```
+
+### 3. Clone this repository.
 
 ```sh
 $ git clone git://github.com/qtcloudservices/qtc-ghost.git
 ```
 
 
-### 3. Add new Git remote to cloned repository.
+### 4. Add new Git remote to local repository.
 
 ```sh
 $ cd qtc-ghost
@@ -33,21 +41,13 @@ $ git remote add qtc YOUR_MAR_GIT_REMOTE_ADDRESS_HERE
 ```
 
 `Git remote address` can be copied from managament console, from general settings panel under the MAR instance. 
-And your public SSH key needs to be [available in your Qt Cloud Services account](https://developer.qtcloudservices.com/qtc/personal-ssh-keys).  
 
 
-### 4. Setup configuration variables with the [`qtc-cli`](https://developer.qtcloudservices.com/qtc/cli) tool.
-
-You will need database configuration from your MDB instance and SMTP server settings to complete the application configuration. Hint! If you don't have SMTP server, check [Mandrill](https://mandrill.com/) or something similar. 
-
+### 5. Setup configuration variables to MAR with the [`qtc-cli`](https://developer.qtcloudservices.com/qtc/cli) tool.
 
 ```sh
 $ qtc-cli mar envs:set NODE_ENV=production
-$ qtc-cli mar envs:set APP_URL=http://ghostonqtc.com
-$ qtc-cli mar envs:set SMTP_HOST=YOUR_SMTP_SERVER_ADDRESS_HERE
-$ qtc-cli mar envs:set SMTP_PORT=YOUR_SMTP_SERVER_PORT_HERE
-$ qtc-cli mar envs:set SMTP_USERNAME=YOUR_SMTP_SERVER_USERNAME_HERE
-$ qtc-cli mar envs:set SMTP_PASSWORD=YOUR_SMTP_SERVER_PASSWORD_HERE
+$ qtc-cli mar envs:set APP_URL=YOUR_BLOG_ADDRESS_HERE
 $ qtc-cli mar envs:set MYSQL_HOST=YOUR_MDB_ADDRESS_HERE
 $ qtc-cli mar envs:set MYSQL_PORT=YOUR_MDB_PORT_HERE
 $ qtc-cli mar envs:set MYSQL_USERNAME=YOUR_MDB_USERNAME_HERE
@@ -55,8 +55,20 @@ $ qtc-cli mar envs:set MYSQL_PASSWORD=YOUR_MDB_PASSWORD_HERE
 $ qtc-cli mar envs:set MYSQL_DATABASE=ghost_db
 $ qtc-cli mar envs:set MYSQL_CHARSET=utf8    
 ```
+`MDB details` can be copied from managament console, from general settings panel under the MDB instance. 
+`ghost_db` is the same name as you used in step 2 for the new database. 
 
-### 5. Deploy codes to MAR
+Optionally you can setup also SMTP server settings. 
+Hint! If you don't have SMTP server, check [Mandrill](https://mandrill.com/) or something similar. 
+
+```sh
+$ qtc-cli mar envs:set SMTP_HOST=YOUR_SMTP_SERVER_ADDRESS_HERE
+$ qtc-cli mar envs:set SMTP_PORT=YOUR_SMTP_SERVER_PORT_HERE
+$ qtc-cli mar envs:set SMTP_USERNAME=YOUR_SMTP_SERVER_USERNAME_HERE
+$ qtc-cli mar envs:set SMTP_PASSWORD=YOUR_SMTP_SERVER_PASSWORD_HERE
+```
+
+### 6. Deploy codes to MAR
 
 ```sh
 $ git push qtc master
