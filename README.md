@@ -10,39 +10,44 @@ See the working demo (our development blog) at http://feed.qtcloudservices.com/
 
 ## Installation
 
-### 1. Clone the repository from Github
+### 1. Create MAR and MDB instances.
+
+Use Qt Cloud Services [management console](https://console.qtcloudservices.com) to create the instances. 
+
+* Select **Mini** runtime size for MAR instance. 
+* Select **MySQL 5.6** for MDB with the amount of memory you feel comfortable. For small blog with few visitors the 256MB memory is enough.
+
+
+### 2. Create database into MDB.
+
+Take [MySQL remote access](https://developer.qtcloudservices.com/mdb/key-concepts/remote-access) to MDB instance and create new database for the Ghost.
+
+```sh
+mysql> create database ghost_db
+```
+
+### 3. Clone this repository.
 
 ```sh
 $ git clone git://github.com/qtcloudservices/qtc-ghost.git
 ```
 
-### 2. Create MAR and MDB instances.
 
-You can create the instances with Qt Cloud Services [management console](https://console.qtcloudservices.com). 
-
-* Select **Mini** runtime size for MAR instance. 
-* Select **MySQL 5.6** for MDB with the amount of memory you feel comfortable. For small blog with few visitors the 256MB memory is enough.
-
-### 3. Initialize the `qtc-cli` command-line tool.
-
-You will need `git remote address` for your MAR instance to initialize the [qtc-cli](https://developer.qtcloudservices.com/qtc/cli) tool. Copy/paste your git remote address from MAR instance general settings panel. 
+### 4. Add new Git remote to local repository.
 
 ```sh
 $ cd qtc-ghost
 $ git remote add qtc YOUR_MAR_GIT_REMOTE_ADDRESS_HERE
 ```
 
-### 4. Add application configuration with qtc-cli tool.
+`Git remote address` can be copied from managament console, from general settings panel under the MAR instance. 
 
-You will need database configuration from your MDB instance and SMTP server settings to complete the application configuration. Hint! If you don't have SMTP server, check [Mandrill](https://mandrill.com/) or something similar.
+
+### 5. Setup configuration variables to MAR with the [`qtc-cli`](https://developer.qtcloudservices.com/qtc/cli) tool.
 
 ```sh
 $ qtc-cli mar envs:set NODE_ENV=production
-$ qtc-cli mar envs:set APP_URL=http://ghostonqtc.com
-$ qtc-cli mar envs:set SMTP_HOST=YOUR_SMTP_SERVER_ADDRESS_HERE
-$ qtc-cli mar envs:set SMTP_PORT=YOUR_SMTP_SERVER_PORT_HERE
-$ qtc-cli mar envs:set SMTP_USERNAME=YOUR_SMTP_SERVER_USERNAME_HERE
-$ qtc-cli mar envs:set SMTP_PASSWORD=YOUR_SMTP_SERVER_PASSWORD_HERE
+$ qtc-cli mar envs:set APP_URL=YOUR_BLOG_ADDRESS_HERE
 $ qtc-cli mar envs:set MYSQL_HOST=YOUR_MDB_ADDRESS_HERE
 $ qtc-cli mar envs:set MYSQL_PORT=YOUR_MDB_PORT_HERE
 $ qtc-cli mar envs:set MYSQL_USERNAME=YOUR_MDB_USERNAME_HERE
@@ -50,8 +55,20 @@ $ qtc-cli mar envs:set MYSQL_PASSWORD=YOUR_MDB_PASSWORD_HERE
 $ qtc-cli mar envs:set MYSQL_DATABASE=ghost_db
 $ qtc-cli mar envs:set MYSQL_CHARSET=utf8    
 ```
+`MDB details` can be copied from managament console, from general settings panel under the MDB instance. 
+`ghost_db` is the same name as you used in step 2 for the new database. 
 
-### 5. Deploy to Managed Application Runtime
+Optionally you can setup also SMTP server settings. 
+Hint! If you don't have SMTP server, check [Mandrill](https://mandrill.com/) or something similar. 
+
+```sh
+$ qtc-cli mar envs:set SMTP_HOST=YOUR_SMTP_SERVER_ADDRESS_HERE
+$ qtc-cli mar envs:set SMTP_PORT=YOUR_SMTP_SERVER_PORT_HERE
+$ qtc-cli mar envs:set SMTP_USERNAME=YOUR_SMTP_SERVER_USERNAME_HERE
+$ qtc-cli mar envs:set SMTP_PASSWORD=YOUR_SMTP_SERVER_PASSWORD_HERE
+```
+
+### 6. Deploy codes to MAR
 
 ```sh
 $ git push qtc master
@@ -85,11 +102,11 @@ http://your-app-url.qtcloudapp.com/ghost
 
 ## Media uploads
 
-Ghost blog platform does not (yet) support cloud based file storage such as Amazon S3. Because a files written to MAR file system are not persistent, media uploads has been disabled by default.
+Ghost blog platform does not (yet) support cloud based file storage such as Amazon S3. Because a files written to MAR file system are not persistent, media uploads have been disabled by default.
 
 ## Custom Domains
 
-If you want to assign a custom domain to your site, enter the follow commands.
+If you want to assign a custom domain to your site, enter the follow command.
 
 ```sh
 $ qtc-cli domains:add www.example.com
