@@ -11,17 +11,6 @@ config = {
     // Set MAR configuration variables with qtc-cli command-line tool
     production: {
         url: process.env.APP_URL,
-        mail: {
-            transport: 'SMTP',
-            options: {
-                host: process.env.SMTP_HOST,
-                port: process.env.SMTP_PORT,
-                auth: {
-                    user: process.env.SMTP_USERNAME,
-                    pass: process.env.SMTP_PASSWORD
-                }
-            }
-        },
         database: {
             client: 'mysql',
             connection: {
@@ -143,6 +132,21 @@ config = {
         logging: false
     }
 };
+
+// Optional SMTP support for production mode
+if((process.env.NODE_ENV == 'production') && process.env.SMTP_HOST && process.env.SMTP_HOST != 'YOUR_SMTP_SERVER_ADDRESS_HERE') {
+    config.mail = {
+        transport: 'SMTP',
+            options: {
+            host: process.env.SMTP_HOST,
+                port: process.env.SMTP_PORT,
+                auth: {
+                user: process.env.SMTP_USERNAME,
+                    pass: process.env.SMTP_PASSWORD
+            }
+        }
+    }
+}
 
 // Export config
 module.exports = config;
